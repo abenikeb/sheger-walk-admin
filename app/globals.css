@@ -1,0 +1,327 @@
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	:root {
+		--background: 0 0% 100%;
+		--foreground: 222.2 84% 4.9%;
+
+		--card: 0 0% 100%;
+		--card-foreground: 222.2 84% 4.9%;
+
+		--popover: 0 0% 100%;
+		--popover-foreground: 222.2 84% 4.9%;
+
+		--primary: 222.2 47.4% 11.2%;
+		--primary-foreground: 210 40% 98%;
+
+		--secondary: 210 40% 96.1%;
+		--secondary-foreground: 222.2 47.4% 11.2%;
+
+		--muted: 210 40% 96.1%;
+		--muted-foreground: 215.4 16.3% 46.9%;
+
+		--accent: 210 40% 96.1%;
+		--accent-foreground: 222.2 47.4% 11.2%;
+
+		--destructive: 0 84.2% 60.2%;
+		--destructive-foreground: 210 40% 98%;
+
+		--border: 214.3 31.8% 91.4%;
+		--input: 214.3 31.8% 91.4%;
+		--ring: 222.2 84% 4.9%;
+
+		--radius: 0.5rem;
+
+		--app-primary: 258 90% 66%;
+		--app-secondary: 45 93% 47%;
+	}
+
+	.dark {
+		--background: 222.2 84% 4.9%;
+		--foreground: 210 40% 98%;
+
+		--card: 222.2 84% 4.9%;
+		--card-foreground: 210 40% 98%;
+
+		--popover: 222.2 84% 4.9%;
+		--popover-foreground: 210 40% 98%;
+
+		--primary: 210 40% 98%;
+		--primary-foreground: 222.2 47.4% 11.2%;
+
+		--secondary: 217.2 32.6% 17.5%;
+		--secondary-foreground: 210 40% 98%;
+
+		--muted: 217.2 32.6% 17.5%;
+		--muted-foreground: 215 20.2% 65.1%;
+
+		--accent: 217.2 32.6% 17.5%;
+		--accent-foreground: 210 40% 98%;
+
+		--destructive: 0 62.8% 30.6%;
+		--destructive-foreground: 210 40% 98%;
+
+		--border: 217.2 32.6% 17.5%;
+		--input: 217.2 32.6% 17.5%;
+		--ring: 212.7 26.8% 83.9%;
+
+		--app-primary: 258 90% 70%;
+		--app-secondary: 45 93% 55%;
+	}
+}
+
+@layer base {
+	* {
+		@apply border-border;
+	}
+	body {
+		@apply bg-background text-foreground;
+	}
+}
+
+@layer components {
+
+	.dashboard-card {
+		@apply relative overflow-hidden;
+	}
+
+	
+	.tabs-content-fix [role="tabpanel"] {
+		@apply relative z-10;
+	}
+
+	.tabs-fix [role="tab"] {
+		@apply relative z-20;
+	}
+
+	
+	.glass-effect {
+		@apply backdrop-blur-xl bg-white/10 dark:bg-black/10 border border-white/20 dark:border-white/10;
+	}
+
+
+	.shadow-glow {
+		box-shadow: 0 0 20px -5px rgba(0, 0, 0, 0.1),
+			0 0 40px -10px rgba(0, 0, 0, 0.05);
+	}
+
+	.dark .shadow-glow {
+		box-shadow: 0 0 20px -5px rgba(255, 255, 255, 0.05),
+			0 0 40px -10px rgba(255, 255, 255, 0.02);
+	}
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(10px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.animate-fadeIn {
+	animation: fadeIn 0.4s ease-out;
+}
+
+
+::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+
+::-webkit-scrollbar-track {
+	@apply bg-muted/30;
+}
+
+::-webkit-scrollbar-thumb {
+	@apply bg-muted-foreground/30 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	@apply bg-muted-foreground/50;
+}
+
+
+.focus-ring {
+	@apply focus:outline-none focus:ring-2 focus:ring-app-primary/50 focus:ring-offset-2 focus:ring-offset-background;
+} */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	:root {
+		--background: 0 0% 100%;
+		--foreground: 222.2 84% 4.9%;
+
+		--card: 0 0% 100%;
+		--card-foreground: 222.2 84% 4.9%;
+
+		--popover: 0 0% 100%;
+		--popover-foreground: 222.2 84% 4.9%;
+
+		--primary: 222.2 47.4% 11.2%;
+		--primary-foreground: 210 40% 98%;
+
+		--secondary: 210 40% 96.1%;
+		--secondary-foreground: 222.2 47.4% 11.2%;
+
+		--muted: 210 40% 96.1%;
+		--muted-foreground: 215.4 16.3% 46.9%;
+
+		--accent: 210 40% 96.1%;
+		--accent-foreground: 222.2 47.4% 11.2%;
+
+		--destructive: 0 84.2% 60.2%;
+		--destructive-foreground: 210 40% 98%;
+
+		--border: 214.3 31.8% 91.4%;
+		--input: 214.3 31.8% 91.4%;
+		--ring: 222.2 84% 4.9%;
+
+		--radius: 0.5rem;
+
+		--app-primary: 258 90% 66%;
+		--app-secondary: 45 93% 47%;
+	}
+
+	.dark {
+		--background: 222.2 84% 4.9%;
+		--foreground: 210 40% 98%;
+
+		--card: 222.2 84% 4.9%;
+		--card-foreground: 210 40% 98%;
+
+		--popover: 222.2 84% 4.9%;
+		--popover-foreground: 210 40% 98%;
+
+		--primary: 210 40% 98%;
+		--primary-foreground: 222.2 47.4% 11.2%;
+
+		--secondary: 217.2 32.6% 17.5%;
+		--secondary-foreground: 210 40% 98%;
+
+		--muted: 217.2 32.6% 17.5%;
+		--muted-foreground: 215 20.2% 65.1%;
+
+		--accent: 217.2 32.6% 17.5%;
+		--accent-foreground: 210 40% 98%;
+
+		--destructive: 0 62.8% 30.6%;
+		--destructive-foreground: 210 40% 98%;
+
+		--border: 217.2 32.6% 17.5%;
+		--input: 217.2 32.6% 17.5%;
+		--ring: 212.7 26.8% 83.9%;
+
+		/* Enhanced dark mode colors */
+		--app-primary: 258 90% 70%;
+		--app-secondary: 45 93% 55%;
+	}
+}
+
+@layer base {
+	* {
+		@apply border-border;
+	}
+	body {
+		@apply bg-background text-foreground;
+	}
+}
+
+@layer components {
+	/* Enhanced card styling */
+	.dashboard-card {
+		@apply relative overflow-hidden;
+	}
+
+	/* Fix for tabs clickability */
+	.tabs-content-fix [role="tabpanel"] {
+		@apply relative z-10;
+	}
+
+	.tabs-fix [role="tab"] {
+		@apply relative z-20;
+	}
+
+	/* Improved glassmorphism effect */
+	.glass-effect {
+		@apply backdrop-blur-xl bg-white/10 dark:bg-black/10 border border-white/20 dark:border-white/10;
+	}
+
+	/* Enhanced shadow utilities */
+	.shadow-glow {
+		box-shadow: 0 0 20px -5px rgba(0, 0, 0, 0.1),
+			0 0 40px -10px rgba(0, 0, 0, 0.05);
+	}
+
+	.dark .shadow-glow {
+		box-shadow: 0 0 20px -5px rgba(255, 255, 255, 0.05),
+			0 0 40px -10px rgba(255, 255, 255, 0.02);
+	}
+
+	/* Background grid pattern */
+	.bg-grid-pattern {
+		background-image: linear-gradient(
+				to right,
+				rgba(0, 0, 0, 0.1) 1px,
+				transparent 1px
+			),
+			linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 1px, transparent 1px);
+		background-size: 20px 20px;
+	}
+
+	.dark .bg-grid-pattern {
+		background-image: linear-gradient(
+				to right,
+				rgba(255, 255, 255, 0.1) 1px,
+				transparent 1px
+			),
+			linear-gradient(to bottom, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+		background-size: 20px 20px;
+	}
+}
+
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(10px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.animate-fadeIn {
+	animation: fadeIn 0.4s ease-out;
+}
+
+/* Improved scrollbar styling */
+::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+
+::-webkit-scrollbar-track {
+	@apply bg-muted/30;
+}
+
+::-webkit-scrollbar-thumb {
+	@apply bg-muted-foreground/30 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	@apply bg-muted-foreground/50;
+}
+
+/* Enhanced focus states */
+.focus-ring {
+	@apply focus:outline-none focus:ring-2 focus:ring-app-primary/50 focus:ring-offset-2 focus:ring-offset-background;
+}
