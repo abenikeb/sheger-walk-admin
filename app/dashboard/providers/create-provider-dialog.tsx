@@ -16,6 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import {BEARER_TOKEN, API_URL} from "@/lib/config.json";
 
 interface CreateProviderDialogProps {
 	open: boolean;
@@ -42,7 +43,7 @@ export function CreateProviderDialog({
 
 		try {
 			const response = await fetch(
-				"http://localhost:3001/api/challenges/challengeProvider",
+				`${API_URL}/api/challenges/challengeProvider`,
 				{
 					method: "POST",
 					headers: {

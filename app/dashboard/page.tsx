@@ -57,14 +57,10 @@ import {
 
 import { DashboardStats } from "@/components/dashboard/dashboard-stats";
 import { WithdrawalOverview } from "@/components/dashboard/withdrawal-overview";
+import {BEARER_TOKEN, API_URL} from "@/lib/config.json";
 
-// Define the base API URL
-const API_URL = "http://localhost:3001"; // Update this with your actual API URL
 
-// Define the auth token - in a real app, this would come from a secure auth context
-const AUTH_TOKEN =
-	"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbjEyQGdtYWlsLmNvbSIsImlzUG9ydGFsVXNlciI6dHJ1ZSwiaWF0IjoxNzQ3NDY5MDkwLCJleHAiOjE3NTAwNjEwOTB9.ZNMZ1ymCn76MyGYalLbrxhpcbVYC-suGS34K9TCik2M";
-
+const AUTH_TOKEN = `Bearer ${BEARER_TOKEN}`;
 interface SystemStats {
 	users: {
 		total: number;
@@ -654,7 +650,7 @@ export default function DashboardPage() {
 			<div className="flex flex-col gap-6">
 				<div className="flex flex-col gap-2">
 					<h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
-					<p className="text-muted-foreground">Welcome to Promo Tech Admin</p>
+					<p className="text-muted-foreground">Welcome to Sheger Walk Admin</p>
 				</div>
 				<div className="flex items-center justify-center h-64">
 					<div className="flex flex-col items-center gap-2">
@@ -673,7 +669,7 @@ export default function DashboardPage() {
 			<div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
 				<div className="flex flex-col gap-2">
 					<h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
-					<p className="text-muted-foreground">Welcome to Promo Tech Admin</p>
+					<p className="text-muted-foreground">Welcome to Sheger Walk Admin</p>
 				</div>
 
 				{/* Date Filter Controls */}

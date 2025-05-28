@@ -8,6 +8,7 @@ import {
 	type ReactNode,
 } from "react";
 import { useRouter } from "next/navigation";
+import { API_URL } from "@/lib/config.json";
 
 interface User {
 	id: number;
@@ -52,7 +53,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
 			// Verify token with backend
 			const response = await fetch(
-				"http://localhost:3001/api/authAdmin/verify",
+				`${API_URL}/api/authAdmin/verify`,
 				{
 					headers: {
 						Authorization: `Bearer ${token}`,
@@ -78,7 +79,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 	const login = async (email: string, password: string) => {
 		try {
 			const response = await fetch(
-				"http://localhost:3001/api/authAdmin/login",
+				`${API_URL}/api/authAdmin/login`,
 				{
 					method: "POST",
 					headers: {
@@ -116,7 +117,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 			if (!token) return false;
 
 			const response = await fetch(
-				"http://localhost:3001/api/authAdmin/refresh",
+				`${API_URL}/api/authAdmin/refresh`,
 				{
 					method: "POST",
 					headers: {

@@ -45,6 +45,8 @@ import {
 } from "@/components/ui/select";
 import { Progress } from "@/components/ui/progress";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import {BEARER_TOKEN, API_URL } from "@/lib/config.json";
+
 
 interface User {
 	id: number;
@@ -160,7 +162,7 @@ export default function LeaderboardPage() {
 
 	const fetchGlobalLeaderboard = async () => {
 		try {
-			const response = await fetch("http://localhost:3001/api/leaderboard");
+			const response = await fetch(`${API_URL}/api/leaderboard`);
 			const data = await response.json();
 
 			if (response.ok) {
@@ -175,7 +177,7 @@ export default function LeaderboardPage() {
 	const fetchChallengeLeaderboard = async (challengeId: string) => {
 		try {
 			const response = await fetch(
-				`http://localhost:3001/api/leaderboard/challenge/${challengeId}`
+				`${API_URL}/api/leaderboard/challenge/${challengeId}`
 			);
 			const data = await response.json();
 
@@ -194,7 +196,7 @@ export default function LeaderboardPage() {
 	const fetchYearlyLeaderboard = async (year: string) => {
 		try {
 			const response = await fetch(
-				`http://localhost:3001/api/leaderboard/yearly?year=${year}`
+				`${API_URL}/api/leaderboard/yearly?year=${year}`
 			);
 			const data = await response.json();
 
@@ -211,7 +213,7 @@ export default function LeaderboardPage() {
 	const fetchMonthlyLeaderboard = async (month: string, year: string) => {
 		try {
 			const response = await fetch(
-				`http://localhost:3001/api/leaderboard/monthly?month=${month}&year=${year}`
+				`${API_URL}/api/leaderboard/monthly?month=${month}&year=${year}`
 			);
 			const data = await response.json();
 
@@ -226,7 +228,7 @@ export default function LeaderboardPage() {
 	const fetchWeeklyLeaderboard = async (week: string, year: string) => {
 		try {
 			const response = await fetch(
-				`http://localhost:3001/api/leaderboard/weekly?week=${week}&year=${year}`
+				`${API_URL}/api/leaderboard/weekly?week=${week}&year=${year}`
 			);
 			const data = await response.json();
 
@@ -243,7 +245,7 @@ export default function LeaderboardPage() {
 	const fetchChallenges = async () => {
 		try {
 			const response = await fetch(
-				"http://localhost:3001/api/challenges/getChallenges"
+				`${API_URL}/api/challenges/getChallenges`
 			);
 			const data = await response.json();
 
@@ -261,10 +263,10 @@ export default function LeaderboardPage() {
 	const fetchUserPosition = async () => {
 		try {
 			const response = await fetch(
-				"http://localhost:3001/api/leaderboard/user-position",
+				`${API_URL}/api/leaderboard/user-position`,
 				{
 					headers: {
-						Authorization: `Bearer ${localStorage.getItem("token")}`,
+						Authorization: `Bearer ${BEARER_TOKEN}`
 					},
 				}
 			);
@@ -281,7 +283,7 @@ export default function LeaderboardPage() {
 	const fetchCountdowns = async () => {
 		try {
 			const response = await fetch(
-				"http://localhost:3001/api/leaderboard/count"
+				`${API_URL}/api/leaderboard/count`
 			);
 			const data = await response.json();
 
@@ -297,11 +299,12 @@ export default function LeaderboardPage() {
 		try {
 			setUpdating(true);
 			const response = await fetch(
-				"http://localhost:3001/api/leaderboard/update",
+				`${API_URL}/api/leaderboard/update`,
 				{
 					method: "POST",
 					headers: {
-						Authorization: `Bearer ${localStorage.getItem("token")}`,
+						// Authorization: `Bearer ${localStorage.getItem("token")}`,
+						Authorization: `Bearer ${BEARER_TOKEN}`
 					},
 				}
 			);

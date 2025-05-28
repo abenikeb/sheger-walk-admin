@@ -36,6 +36,7 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
+import {BEARER_TOKEN} from "@/lib/config.json";
 
 interface Referral {
 	id: number;
@@ -68,8 +69,7 @@ export default function ReferralsPage() {
 				setLoading(true);
 				const response = await fetch("/api/admin/referrals", {
 					headers: {
-						Authorization:
-							"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbjEyQGdtYWlsLmNvbSIsImlzUG9ydGFsVXNlciI6dHJ1ZSwiaWF0IjoxNzQ3NDY5MDkwLCJleHAiOjE3NTAwNjEwOTB9.ZNMZ1ymCn76MyGYalLbrxhpcbVYC-suGS34K9TCik2M",
+						Authorization: `Bearer ${BEARER_TOKEN}`
 					},
 				});
 				const data = await response.json();

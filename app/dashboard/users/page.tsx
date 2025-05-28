@@ -77,6 +77,7 @@ import {
 	SheetFooter,
 	SheetClose,
 } from "@/components/ui/sheet";
+import {BEARER_TOKEN, API_URL} from "@/lib/config.json";
 
 interface User {
 	id: number;
@@ -167,10 +168,9 @@ export default function UsersPage() {
 	const fetchUsers = async () => {
 		try {
 			setLoading(true);
-			const response = await fetch("http://localhost:3001/api/admin/users", {
+			const response = await fetch(`${API_URL}/api/admin/users`, {
 				headers: {
-					Authorization:
-						"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbjEyQGdtYWlsLmNvbSIsImlzUG9ydGFsVXNlciI6dHJ1ZSwiaWF0IjoxNzQ3NDY5MDkwLCJleHAiOjE3NTAwNjEwOTB9.ZNMZ1ymCn76MyGYalLbrxhpcbVYC-suGS34K9TCik2M",
+					Authorization: `Bearer ${BEARER_TOKEN}`
 				},
 			});
 			const data = await response.json();
@@ -323,7 +323,7 @@ export default function UsersPage() {
 
 			// Here you would implement the actual API call to send notifications
 			// Example:
-			// const response = await fetch("http://localhost:3001/api/admin/notifications/bulk", {
+			// const response = await fetch(`${API_URL}/api/admin/notifications/bulk", {
 			//   method: "POST",
 			//   headers: {
 			//     "Content-Type": "application/json",

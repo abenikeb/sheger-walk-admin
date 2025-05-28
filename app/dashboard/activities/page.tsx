@@ -96,13 +96,10 @@ import {
 	Pie,
 	Cell,
 } from "recharts";
-
-// Define the base API URL
-const API_URL = "http://localhost:3001";
+import {BEARER_TOKEN, API_URL} from "@/lib/config.json";
 
 // Define the auth token
-const AUTH_TOKEN =
-	"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbjEyQGdtYWlsLmNvbSIsImlzUG9ydGFsVXNlciI6dHJ1ZSwiaWF0IjoxNzQ3NDY5MDkwLCJleHAiOjE3NTAwNjEwOTB9.ZNMZ1ymCn76MyGYalLbrxhpcbVYC-suGS34K9TCik2M";
+const AUTH_TOKEN = `Bearer ${BEARER_TOKEN}`;
 
 interface WalkingActivity {
 	id: number;

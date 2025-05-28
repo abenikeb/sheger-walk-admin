@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { API_URL } from "@/lib/config.json";
 
 interface RewardType {
 	id: number;
@@ -51,7 +52,7 @@ export function EditRewardTypeDialog({
 
 		try {
 			const response = await fetch(
-				`http://localhost:3001/api/challenges/rewardType/${rewardType.id}`,
+				`${API_URL}/api/challenges/rewardType/${rewardType.id}`,
 				{
 					method: "PUT",
 					headers: {

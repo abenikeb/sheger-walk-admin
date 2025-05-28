@@ -16,6 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { BEARER_TOKEN, API_URL } from "@/lib/config.json";
 
 interface ChallengeProvider {
 	id: number;
@@ -65,7 +66,7 @@ export function EditProviderDialog({
 
 		try {
 			const response = await fetch(
-				`http://localhost:3001/api/challenges/challengeProvider/${provider.id}`,
+				`${API_URL}/api/challenges/challengeProvider/${provider.id}`,
 				{
 					method: "PUT",
 					headers: {

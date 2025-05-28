@@ -48,6 +48,7 @@ import {
 } from "@/components/ui/table";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import {BEARER_TOKEN, API_URL} from "@/lib/config.json";
 
 interface UserDetails {
 	id: number;
@@ -90,11 +91,10 @@ export default function UserDetailsPage() {
 			try {
 				setLoading(true);
 				const response = await fetch(
-					`http://localhost:3001/api/admin/users/${userId}`,
+					`${API_URL}/api/admin/users/${userId}`,
 					{
 						headers: {
-							Authorization:
-								"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbjEyQGdtYWlsLmNvbSIsImlzUG9ydGFsVXNlciI6dHJ1ZSwiaWF0IjoxNzQ3NDY5MDkwLCJleHAiOjE3NTAwNjEwOTB9.ZNMZ1ymCn76MyGYalLbrxhpcbVYC-suGS34K9TCik2M",
+							Authorization: `Bearer ${BEARER_TOKEN}`
 						},
 					}
 				);
