@@ -166,3 +166,194 @@ export function StatCard({
 		</Card>
 	);
 }
+
+// "use client";
+
+// import type { LucideIcon } from "lucide-react";
+// import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+// import { cn } from "@/lib/utils";
+// import { TrendingUp, TrendingDown, Sparkles } from "lucide-react";
+
+// interface StatCardProps {
+// 	title: string;
+// 	value: string | number;
+// 	subtitle?: string;
+// 	icon: LucideIcon;
+// 	trend?: {
+// 		value: number;
+// 		label: string;
+// 		isPositive?: boolean;
+// 	};
+// 	variant?:
+// 		| "default"
+// 		| "primary"
+// 		| "secondary"
+// 		| "success"
+// 		| "warning"
+// 		| "danger";
+// 	className?: string;
+// }
+
+// const variantStyles = {
+// 	default: {
+// 		card: "glass-effect border-white/20 hover:border-slate-300/30 dark:hover:border-slate-600/30",
+// 		iconBg: "bg-gradient-to-br from-slate-500 to-slate-600 shadow-glow",
+// 		icon: "text-white",
+// 		value: "text-slate-900 dark:text-slate-100",
+// 		glow: "shadow-glow hover:shadow-xl",
+// 		accent: "from-slate-500/10 to-slate-600/10",
+// 	},
+// 	primary: {
+// 		card: "glass-effect border-blue-200/30 dark:border-blue-800/30 hover:border-blue-300/50 dark:hover:border-blue-600/50",
+// 		iconBg: "bg-gradient-to-br from-blue-500 to-purple-600 shadow-glow-primary",
+// 		icon: "text-white",
+// 		value: "text-blue-700 dark:text-blue-300 font-bold",
+// 		glow: "shadow-glow-primary hover:shadow-xl",
+// 		accent: "from-blue-500/10 to-purple-600/10",
+// 	},
+// 	secondary: {
+// 		card: "glass-effect border-amber-200/30 dark:border-amber-800/30 hover:border-amber-300/50 dark:hover:border-amber-600/50",
+// 		iconBg:
+// 			"bg-gradient-to-br from-amber-500 to-orange-600 shadow-glow-secondary",
+// 		icon: "text-white",
+// 		value: "text-amber-700 dark:text-amber-300 font-bold",
+// 		glow: "shadow-glow-secondary hover:shadow-xl",
+// 		accent: "from-amber-500/10 to-orange-600/10",
+// 	},
+// 	success: {
+// 		card: "glass-effect border-emerald-200/30 dark:border-emerald-800/30 hover:border-emerald-300/50 dark:hover:border-emerald-600/50",
+// 		iconBg:
+// 			"bg-gradient-to-br from-emerald-500 to-green-600 shadow-glow-success",
+// 		icon: "text-white",
+// 		value: "text-emerald-700 dark:text-emerald-300 font-bold",
+// 		glow: "shadow-glow-success hover:shadow-xl",
+// 		accent: "from-emerald-500/10 to-green-600/10",
+// 	},
+// 	warning: {
+// 		card: "glass-effect border-yellow-200/30 dark:border-yellow-800/30 hover:border-yellow-300/50 dark:hover:border-yellow-600/50",
+// 		iconBg:
+// 			"bg-gradient-to-br from-yellow-500 to-amber-600 shadow-glow-warning",
+// 		icon: "text-white",
+// 		value: "text-yellow-700 dark:text-yellow-300 font-bold",
+// 		glow: "shadow-glow-warning hover:shadow-xl",
+// 		accent: "from-yellow-500/10 to-amber-600/10",
+// 	},
+// 	danger: {
+// 		card: "glass-effect border-red-200/30 dark:border-red-800/30 hover:border-red-300/50 dark:hover:border-red-600/50",
+// 		iconBg: "bg-gradient-to-br from-red-500 to-rose-600 shadow-glow-danger",
+// 		icon: "text-white",
+// 		value: "text-red-700 dark:text-red-300 font-bold",
+// 		glow: "shadow-glow-danger hover:shadow-xl",
+// 		accent: "from-red-500/10 to-rose-600/10",
+// 	},
+// };
+
+// export function StatCard({
+// 	title,
+// 	value,
+// 	subtitle,
+// 	icon: Icon,
+// 	trend,
+// 	variant = "default",
+// 	className,
+// }: StatCardProps) {
+// 	const styles = variantStyles[variant];
+
+// 	const formatValue = (val: string | number) => {
+// 		if (typeof val === "number") {
+// 			return new Intl.NumberFormat().format(val);
+// 		}
+// 		return val;
+// 	};
+
+// 	return (
+// 		<Card
+// 			className={cn(
+// 				"relative overflow-hidden transition-all duration-500 ease-out group hover-lift",
+// 				styles.card,
+// 				styles.glow,
+// 				className
+// 			)}>
+// 			{/* Animated background overlay */}
+// 			<div
+// 				className={cn(
+// 					"absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-opacity duration-500",
+// 					styles.accent
+// 				)}
+// 			/>
+
+// 			{/* Shimmer effect */}
+// 			<div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+// 				<div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 animate-shimmer" />
+// 			</div>
+
+// 			{/* Floating particles effect */}
+// 			<div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+// 				<Sparkles className="w-4 h-4 text-white/30 animate-float" />
+// 			</div>
+
+// 			<CardHeader className="relative flex flex-row items-center justify-between space-y-0 pb-4 z-10">
+// 				<CardTitle className="text-sm font-semibold text-muted-foreground/80 dark:text-muted-foreground group-hover:text-muted-foreground dark:group-hover:text-muted-foreground/90 transition-colors duration-300">
+// 					{title}
+// 				</CardTitle>
+// 				<div
+// 					className={cn(
+// 						"h-14 w-14 rounded-2xl flex items-center justify-center transition-all duration-500 group-hover:scale-110 group-hover:rotate-3",
+// 						styles.iconBg
+// 					)}>
+// 					<Icon
+// 						className={cn(
+// 							"h-7 w-7 transition-all duration-500 group-hover:scale-110",
+// 							styles.icon
+// 						)}
+// 					/>
+// 				</div>
+// 			</CardHeader>
+
+// 			<CardContent className="relative space-y-3 z-10">
+// 				<div
+// 					className={cn(
+// 						"text-4xl font-bold tracking-tight transition-all duration-300 group-hover:scale-105",
+// 						styles.value
+// 					)}>
+// 					{formatValue(value)}
+// 				</div>
+
+// 				{subtitle && (
+// 					<p className="text-sm text-muted-foreground/70 dark:text-muted-foreground/80 transition-colors duration-300 group-hover:text-muted-foreground dark:group-hover:text-muted-foreground/90">
+// 						{subtitle}
+// 					</p>
+// 				)}
+
+// 				{trend && (
+// 					<div className="flex items-center gap-3 pt-2">
+// 						<div
+// 							className={cn(
+// 								"flex items-center gap-2 px-3 py-2 rounded-full text-sm font-semibold transition-all duration-300 group-hover:scale-105",
+// 								"backdrop-blur-sm border",
+// 								trend.isPositive !== false
+// 									? "bg-emerald-100/80 text-emerald-700 border-emerald-200/50 dark:bg-emerald-900/40 dark:text-emerald-400 dark:border-emerald-700/50"
+// 									: "bg-red-100/80 text-red-700 border-red-200/50 dark:bg-red-900/40 dark:text-red-400 dark:border-red-700/50"
+// 							)}>
+// 							{trend.isPositive !== false ? (
+// 								<TrendingUp className="h-4 w-4" />
+// 							) : (
+// 								<TrendingDown className="h-4 w-4" />
+// 							)}
+// 							<span>
+// 								{trend.isPositive !== false ? "+" : ""}
+// 								{trend.value}%
+// 							</span>
+// 						</div>
+// 						<span className="text-sm text-muted-foreground/60 dark:text-muted-foreground/70 transition-colors duration-300">
+// 							{trend.label}
+// 						</span>
+// 					</div>
+// 				)}
+
+// 				{/* Progress indicator */}
+// 				<div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+// 			</CardContent>
+// 		</Card>
+// 	);
+// }

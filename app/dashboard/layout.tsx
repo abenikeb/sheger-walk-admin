@@ -19,6 +19,7 @@ import {
 	Users,
 	ChevronRight,
 	LayoutDashboard,
+	Sparkles,
 } from "lucide-react";
 import { AuthMiddleware } from "@/middleware/auth-middleware";
 
@@ -172,12 +173,33 @@ export default function DashboardLayout({
 						</SheetTrigger>
 						<SheetContent side="left" className="w-80 p-0 sm:max-w-none">
 							<div className="flex h-full flex-col">
-								<SheetHeader className="border-b p-4">
+								{/* <SheetHeader className="border-b p-4">
 									<SheetTitle className="flex items-center gap-2 text-app-primary">
 										<div className="h-8 w-8 rounded-full bg-gradient-to-b from-app-primary to-app-secondary flex items-center justify-center">
 											<Award className="h-5 w-5 text-white" />
 										</div>
 										<span className="font-bold">Sheger Walk Admin</span>
+									</SheetTitle>
+								</SheetHeader> */}
+
+								<SheetHeader className="border-b border-white/20 p-6">
+									<SheetTitle className="flex items-center gap-3">
+										<div className="relative">
+											<div className="h-10 w-10 rounded-2xl bg-gradient-to-br from-app-primary to-app-secondary flex items-center justify-center shadow-glow-primary animate-pulse-glow">
+												<Award className="h-6 w-6 text-white" />
+											</div>
+											<div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center animate-float">
+												<Sparkles className="w-2 h-2 text-white" />
+											</div>
+										</div>
+										<div>
+											<span className="text-xl font-bold gradient-text">
+												Sheger Walk Admin
+											</span>
+											<p className="text-xs text-muted-foreground">
+												Management Portal
+											</p>
+										</div>
 									</SheetTitle>
 								</SheetHeader>
 								<div className="flex-1 overflow-auto py-2">
@@ -255,14 +277,30 @@ export default function DashboardLayout({
 							</div>
 						</SheetContent>
 					</Sheet>
-					<div className="flex items-center gap-2">
+
+					<div className="relative">
+						<div className="h-10 w-10 rounded-2xl bg-gradient-to-br from-app-primary to-app-secondary flex items-center justify-center shadow-glow-primary animate-pulse-glow">
+							<Award className="h-6 w-6 text-white" />
+						</div>
+						<div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full flex items-center justify-center animate-float">
+							<Sparkles className="w-2 h-2 text-white" />
+						</div>
+					</div>
+					<div>
+						<span className="text-xl font-bold gradient-text">
+							Sheger Walk Admin
+						</span>
+						{/* <p className="text-xs text-muted-foreground">Management Portal</p> */}
+					</div>
+
+					{/* <div className="flex items-center gap-2">
 						<div className="h-8 w-8 rounded-full bg-gradient-to-b from-app-primary to-app-secondary flex items-center justify-center">
 							<Award className="h-5 w-5 text-white" />
 						</div>
 						<span className="text-lg font-semibold tracking-tight text-app-primary">
 							Sheger Walk Admin
 						</span>
-					</div>
+					</div> */}
 					<div className="ml-auto flex items-center gap-4">
 						<div className="hidden md:flex flex-col items-end">
 							<span className="text-sm font-medium">
