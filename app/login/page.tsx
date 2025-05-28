@@ -124,7 +124,7 @@ export default function LoginPage() {
 			<div
 				className="absolute inset-0 bg-cover bg-center bg-no-repeat"
 				style={{
-					backgroundImage: `url('/walking3.jpg?height=1080&width=1920')`,
+					backgroundImage: `url('/walking5.jpg?height=1080&width=1920')`,
 				}}>
 				<div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/60 to-black/80"></div>
 			</div>

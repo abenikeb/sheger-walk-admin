@@ -44,6 +44,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { CreateProviderDialog } from "./create-provider-dialog";
 import { EditProviderDialog } from "./edit-provider-dialog";
+import {BEARER_TOKEN, API_URL} from "@/lib/config.json";
 
 interface ChallengeProvider {
 	id: number;
@@ -86,7 +87,7 @@ export default function ProvidersPage() {
 		try {
 			setLoading(true);
 			const response = await fetch(
-				"http://localhost:3001/api/challenges/providers"
+				`${API_URL}/api/challenges/providers`
 			);
 			const data = await response.json();
 
@@ -132,7 +133,7 @@ export default function ProvidersPage() {
 
 		try {
 			const response = await fetch(
-				`http://localhost:3001/api/challenges/challengeProvider/${providerId}`,
+				`${API_URL}/api/challenges/challengeProvider/${providerId}`,
 				{
 					method: "DELETE",
 				}

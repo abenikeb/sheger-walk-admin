@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-
+import { API_URL } from "@/lib/config.json";
 interface CreateRewardTypeDialogProps {
 	open: boolean;
 	onOpenChange: (open: boolean) => void;
@@ -36,7 +36,7 @@ export function CreateRewardTypeDialog({
 
 		try {
 			const response = await fetch(
-				"http://localhost:3001/api/challenges/rewardType",
+				`${API_URL}/api/challenges/rewardType`,
 				{
 					method: "POST",
 					headers: {

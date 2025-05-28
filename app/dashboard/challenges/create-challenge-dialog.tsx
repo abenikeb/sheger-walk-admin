@@ -32,6 +32,8 @@ import {
 	PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
+import {BEARER_TOKEN, API_URL} from "@/lib/config.json";
+
 
 interface ChallengeProvider {
 	id: number;
@@ -84,7 +86,7 @@ export function CreateChallengeDialog({
 		setLoading(true);
 
 		try {
-			const response = await fetch("http://localhost:3001/api/challenges/", {
+			const response = await fetch(`${API_URL}/api/challenges/`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",

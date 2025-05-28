@@ -76,6 +76,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Separator } from "@/components/ui/separator";
+import {BEARER_TOKEN, API_URL} from "@/lib/config.json";
 
 interface ChallengeProvider {
 	id: number;
@@ -148,7 +149,7 @@ export default function ChallengeDetailPage() {
 		try {
 			setLoading(true);
 			const response = await fetch(
-				`http://localhost:3001/api/challenges/getChallenges/${challengeId}`
+				`${API_URL}/api/challenges/getChallenges/${challengeId}`
 			);
 			const data = await response.json();
 
@@ -174,7 +175,7 @@ export default function ChallengeDetailPage() {
 
 		try {
 			const response = await fetch(
-				`http://localhost:3001/api/challenges/${challengeId}`,
+				`${API_URL}/api/challenges/${challengeId}`,
 				{
 					method: "DELETE",
 				}
@@ -198,7 +199,7 @@ export default function ChallengeDetailPage() {
 		try {
 			const winner = getWinner();
 			const response = await fetch(
-				`http://localhost:3001/api/notifications/winner`,
+				`${API_URL}/api/notifications/winner`,
 				{
 					method: "POST",
 					headers: {

@@ -23,6 +23,7 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 
+import { API_URL } from "@/lib/config.json";
 interface RewardType {
 	id: number;
 	name: string;
@@ -76,7 +77,7 @@ export function EditRewardDialog({
 
 		try {
 			const response = await fetch(
-				`http://localhost:3001/api/rewards/${reward.id}`,
+				`${API_URL}/api/rewards/${reward.id}`,
 				{
 					method: "PUT",
 					headers: {

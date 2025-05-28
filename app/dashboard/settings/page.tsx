@@ -29,6 +29,7 @@ import { Switch } from "@/components/ui/switch";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Separator } from "@/components/ui/separator";
+import { API_URL } from "@/lib/config.json";
 
 interface CoinSettings {
 	id?: number;
@@ -109,8 +110,8 @@ export default function SettingsPage() {
 		try {
 			setLoading(true);
 			const [coinResponse, referralResponse] = await Promise.all([
-				fetch("http://localhost:3001/api/settings/coins"),
-				fetch("http://localhost:3001/api/settings/referrals"),
+				fetch(`${API_URL}/api/settings/coins`),
+				fetch(`${API_URL}/api/settings/referrals`),
 			]);
 
 			if (coinResponse.ok) {
@@ -136,7 +137,7 @@ export default function SettingsPage() {
 
 	const fetchSystemStats = async () => {
 		try {
-			const response = await fetch("http://localhost:3001/api/settings/stats");
+			const response = await fetch(`${API_URL}/api/settings/stats`);
 			if (response.ok) {
 				const data = await response.json();
 				setSystemStats(data.stats);
@@ -151,7 +152,7 @@ export default function SettingsPage() {
 			setSaving(true);
 			setErrorMessage("");
 
-			const response = await fetch("http://localhost:3001/api/settings/coins", {
+			const response = await fetch(`${API_URL}/api/settings/coins`, {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -183,7 +184,7 @@ export default function SettingsPage() {
 			setErrorMessage("");
 
 			const response = await fetch(
-				"http://localhost:3001/api/settings/referrals",
+				`${API_URL}/api/settings/referrals`,
 				{
 					method: "POST",
 					headers: {

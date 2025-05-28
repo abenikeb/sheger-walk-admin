@@ -17,6 +17,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {BEARER_TOKEN, API_URL} from "@/lib/config.json";
 
 interface RewardType {
 	id: number;
@@ -48,8 +49,8 @@ export function ManageRewardTypesDialog({
 
 		try {
 			const url = editingType
-				? `http://localhost:3001/api/challenges/rewardType/${editingType.id}`
-				: "http://localhost:3001/api/challenges/rewardType";
+				? `${API_URL}/api/challenges/rewardType/${editingType.id}`
+				: `${API_URL}/api/challenges/rewardType`;
 
 			const method = editingType ? "PUT" : "POST";
 

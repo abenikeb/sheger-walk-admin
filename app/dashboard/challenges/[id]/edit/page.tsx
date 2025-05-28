@@ -34,6 +34,7 @@ import {
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import {BEARER_TOKEN, API_URL} from "@/lib/config.json";
 
 interface ChallengeProvider {
 	id: number;
@@ -110,7 +111,7 @@ export default function EditChallengePage() {
 		try {
 			setLoading(true);
 			const response = await fetch(
-				`http://localhost:3001/api/challenges/getChallenges/${challengeId}`
+				`${API_URL}/api/challenges/getChallenges/${challengeId}`
 			);
 			const data = await response.json();
 
@@ -150,7 +151,7 @@ export default function EditChallengePage() {
 	const fetchProviders = async () => {
 		try {
 			const response = await fetch(
-				"http://localhost:3001/api/challenges/providers"
+				`${API_URL}/api/challenges/providers`
 			);
 			const data = await response.json();
 
@@ -165,7 +166,7 @@ export default function EditChallengePage() {
 	const fetchRewardTypes = async () => {
 		try {
 			const response = await fetch(
-				"http://localhost:3001/api/challenges/reward-types"
+				`${API_URL}/api/challenges/reward-types`
 			);
 			const data = await response.json();
 
@@ -241,7 +242,7 @@ export default function EditChallengePage() {
 
 		try {
 			const response = await fetch(
-				`http://localhost:3001/api/challenges/${challengeId}`,
+				`${API_URL}/api/challenges/${challengeId}`,
 				{
 					method: "PUT",
 					headers: {

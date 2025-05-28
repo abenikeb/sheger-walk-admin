@@ -18,6 +18,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import {BEARER_TOKEN, API_URL} from "@/lib/config.json";
+
 
 interface ChallengeProvider {
 	id: number;
@@ -56,8 +58,8 @@ export function ManageProvidersDialog({
 
 		try {
 			const url = editingProvider
-				? `http://localhost:3001/api/challenges/challengeProvider/${editingProvider.id}`
-				: "http://localhost:3001/api/challenges/challengeProvider";
+				? `${API_URL}/api/challenges/challengeProvider/${editingProvider.id}`
+				: `${API_URL}/api/challenges/challengeProvider`;
 
 			const method = editingProvider ? "PUT" : "POST";
 
@@ -100,7 +102,7 @@ export function ManageProvidersDialog({
 
 		try {
 			const response = await fetch(
-				`http://localhost:3001/api/challenges/challengeProvider/${providerId}`,
+				`${API_URL}/api/challenges/challengeProvider/${providerId}`,
 				{
 					method: "DELETE",
 				}

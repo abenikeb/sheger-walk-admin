@@ -22,6 +22,7 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
+import { API_URL } from "@/lib/config.json";
 
 interface RewardType {
 	id: number;
@@ -54,7 +55,7 @@ export function CreateRewardDialog({
 
 		try {
 			const response = await fetch(
-				"http://localhost:3001/api/challenges/rewards",
+				`${API_URL}/api/challenges/rewards`,
 				{
 					method: "POST",
 					headers: {

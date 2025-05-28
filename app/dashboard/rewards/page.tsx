@@ -45,6 +45,7 @@ import { CreateRewardDialog } from "./create-reward-dialog";
 import { CreateRewardTypeDialog } from "./create-reward-type-dialog";
 import { EditRewardDialog } from "./edit-reward-dialog";
 import { EditRewardTypeDialog } from "./edit-reward-type-dialog";
+import { API_URL } from "@/lib/config.json";
 
 interface RewardType {
 	id: number;
@@ -99,7 +100,7 @@ export default function RewardsPage() {
 		try {
 			setLoading(true);
 			const response = await fetch(
-				"http://localhost:3001/api/challenges/rewards"
+				`${API_URL}/api/challenges/rewards`
 			);
 			const data = await response.json();
 
@@ -119,7 +120,7 @@ export default function RewardsPage() {
 	const fetchRewardTypes = async () => {
 		try {
 			const response = await fetch(
-				"http://localhost:3001/api/challenges/reward-types"
+				`${API_URL}/api/challenges/reward-types`
 			);
 			const data = await response.json();
 
@@ -167,7 +168,7 @@ export default function RewardsPage() {
 
 		try {
 			const response = await fetch(
-				`http://localhost:3001/api/rewards/${rewardId}`,
+				`${API_URL}/api/rewards/${rewardId}`,
 				{
 					method: "DELETE",
 				}
@@ -194,7 +195,7 @@ export default function RewardsPage() {
 
 		try {
 			const response = await fetch(
-				`http://localhost:3001/api/challenges/rewardType/${typeId}`,
+				`${API_URL}/api/challenges/rewardType/${typeId}`,
 				{
 					method: "DELETE",
 				}

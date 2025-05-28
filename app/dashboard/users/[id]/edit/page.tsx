@@ -34,7 +34,8 @@ import { useToast } from "@/components/ui/use-toast";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { API_URL } from "@/lib/config.json";
+import { API_URL, BEARER_TOKEN } from "@/lib/config.json";
+
 
 const formSchema = z.object({
 	name: z.string().min(2, {
@@ -88,8 +89,7 @@ export default function EditUserPage() {
 				const response = await fetch(`${API_URL}/api/admin/users/${userId}`, {
 					headers: {
 						"Content-Type": "application/json",
-						"Authorization":
-							"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbjEyQGdtYWlsLmNvbSIsImlzUG9ydGFsVXNlciI6dHJ1ZSwiaWF0IjoxNzQ3NDY5MDkwLCJleHAiOjE3NTAwNjEwOTB9.ZNMZ1ymCn76MyGYalLbrxhpcbVYC-suGS34K9TCik2M",
+						Authorization: `Bearer ${BEARER_TOKEN}`
 					},
 				});
 				const data = await response.json();
