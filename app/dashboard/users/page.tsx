@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 import {
 	Bell,
@@ -77,7 +78,8 @@ import {
 	SheetFooter,
 	SheetClose,
 } from "@/components/ui/sheet";
-import {BEARER_TOKEN, API_URL} from "@/lib/config.json";
+import { BEARER_TOKEN, API_URL } from "@/lib/config.json";
+import Image from "next/image";
 
 interface User {
 	id: number;
@@ -105,6 +107,7 @@ type FilterState = {
 };
 
 export default function UsersPage() {
+	const router = useRouter();
 	const [users, setUsers] = useState<User[]>([]);
 	const [loading, setLoading] = useState(true);
 	const [searchQuery, setSearchQuery] = useState("");
@@ -170,7 +173,7 @@ export default function UsersPage() {
 			setLoading(true);
 			const response = await fetch(`${API_URL}/api/admin/users`, {
 				headers: {
-					Authorization: `Bearer ${BEARER_TOKEN}`
+					Authorization: `Bearer ${BEARER_TOKEN}`,
 				},
 			});
 			const data = await response.json();
@@ -372,6 +375,12 @@ export default function UsersPage() {
 	const handleViewUserDetails = (user: User) => {
 		setSelectedUserDetails(user);
 		setIsUserDetailOpen(true);
+	};
+
+	const handleViewUserRouterDetails = (user: User) => {
+		router.push(`users/${user.id}`);
+		// setSelectedUserDetails(user);
+		// setIsUserDetailOpen(true);
 	};
 
 	const handleExportUsers = () => {
@@ -877,7 +886,9 @@ export default function UsersPage() {
 															<DropdownMenuContent align="end">
 																<DropdownMenuLabel>Actions</DropdownMenuLabel>
 																<DropdownMenuItem
-																	onClick={() => handleViewUserDetails(user)}>
+																	onClick={() =>
+																		handleViewUserRouterDetails(user)
+																	}>
 																	View details
 																</DropdownMenuItem>
 																<DropdownMenuItem asChild>
@@ -1032,15 +1043,35 @@ export default function UsersPage() {
 							</SheetHeader>
 							<div className="py-6">
 								<div className="flex flex-col items-center mb-6">
-									<Avatar className="h-24 w-24 mb-4">
+									{/* <Avatar className="h-24 w-24 mb-4">
 										<AvatarImage
-											src={`https://api.dicebear.com/7.x/initials/svg?seed=${selectedUserDetails.name}`}
+											// src={`https://api.dicebear.com/7.x/initials/svg?seed=${selectedUserDetails.name}`}
+											src={`http://localhost:3001/uploads/1748547739574-profileImage.jpg`}
 											alt={selectedUserDetails.name}
 										/>
 										<AvatarFallback>
 											{selectedUserDetails.name.substring(0, 2).toUpperCase()}
 										</AvatarFallback>
-									</Avatar>
+									</Avatar> */}
+									<img
+										src="http://localhost:3001/uploads/1748547739574-profileImage.jpg"
+										alt={selectedUserDetails.name}
+										className="h-24 w-24 rounded-full mb-4 object-cover"
+									/>
+
+									{/* <Image
+										src={`http://localhost:3001/uploads/1748547739574-profileImage.jpg`}
+										alt={selectedUserDetails.name}
+										className="h-24 w-24 rounded-full mb-4 object-cover"
+										width={96}
+										height={96}
+										loading="lazy"
+										placeholder="blur"
+										blurDataURL={`http://localhost:3001/uploads/1748547739574-profileImage.jpg`}
+										quality={80}
+										decoding="async"
+										fetchPriority="high"
+									/> */}
 									<h3 className="text-xl font-semibold">
 										{selectedUserDetails.name}
 									</h3>
