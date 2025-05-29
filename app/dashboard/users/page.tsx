@@ -1054,7 +1054,7 @@ export default function UsersPage() {
 										</AvatarFallback>
 									</Avatar> */}
 									<img
-										src="http://localhost:3001/uploads/1748547739574-profileImage.jpg"
+										src={`${API_URL}/uploads/1748547739574-profileImage.jpg`}
 										alt={selectedUserDetails.name}
 										className="h-24 w-24 rounded-full mb-4 object-cover"
 									/>
