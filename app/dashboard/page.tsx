@@ -13,6 +13,7 @@ import {
 	Calendar,
 	BarChart3,
 	PieChart,
+	CheckCircle,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -60,13 +61,7 @@ import {
 
 import { DashboardStats } from "@/components/dashboard/dashboard-stats";
 import { WithdrawalOverview } from "@/components/dashboard/withdrawal-overview";
-
-// Define the base API URL
-const API_URL = "http://localhost:3001"; // Update this with your actual API URL
-
-// Define the auth token - in a real app, this would come from a secure auth context
-const AUTH_TOKEN =
-	"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbjEyQGdtYWlsLmNvbSIsImlzUG9ydGFsVXNlciI6dHJ1ZSwiaWF0IjoxNzQ3NDY5MDkwLCJleHAiOjE3NTAwNjEwOTB9.ZNMZ1ymCn76MyGYalLbrxhpcbVYC-suGS34K9TCik2M";
+import { BEARER_TOKEN, API_URL } from "@/lib/config.json";
 
 interface SystemStats {
 	users: {
@@ -176,8 +171,9 @@ const COLORS = [
 	"#f97316",
 	"#8b5cf6",
 ];
+const AUTH_TOKEN = `Bearer ${BEARER_TOKEN}`;
 
-export default function EnhancedDashboardPage() {
+export default function DashboardPage() {
 	const [stats, setStats] = useState<SystemStats | null>(null);
 	const [rankStats, setRankStats] = useState<RankStats[]>([]);
 	const [recentUsers, setRecentUsers] = useState<User[]>([]);
@@ -189,6 +185,7 @@ export default function EnhancedDashboardPage() {
 	const [allChallenges, setAllChallenges] = useState<Challenge[]>([]);
 	const [loading, setLoading] = useState(true);
 	const [analyticsLoading, setAnalyticsLoading] = useState(false);
+
 	const [profileCompletionStats, setProfileCompletionStats] = useState({
 		completed: 0,
 		incomplete: 0,
@@ -658,7 +655,7 @@ export default function EnhancedDashboardPage() {
 				<div className="flex flex-col gap-2">
 					<h1 className="text-4xl font-bold gradient-text">Dashboard</h1>
 					<p className="text-muted-foreground text-lg">
-						Welcome to Promo Tech Admin
+						Welcome to Sheger Walk Admin
 					</p>
 				</div>
 				<div className="flex items-center justify-center h-64">
@@ -683,7 +680,7 @@ export default function EnhancedDashboardPage() {
 				<div className="flex flex-col gap-3">
 					<h1 className="text-4xl font-bold gradient-text">Dashboard</h1>
 					<p className="text-muted-foreground text-lg">
-						Welcome to Promo Tech Admin
+						Welcome to Sheger Walk Admin
 					</p>
 					<div className="flex items-center gap-4 text-sm text-muted-foreground">
 						<div className="flex items-center gap-2">
@@ -1034,17 +1031,12 @@ export default function EnhancedDashboardPage() {
 								</div>
 							</TabsContent>
 
-							{/* Similar enhancements for other tabs... */}
 							<TabsContent value="users" className="space-y-6">
 								<div className="grid gap-6 md:grid-cols-2">
-									<Card className="glass-effect border-white/20 hover-lift transition-all duration-300">
+									{/* User Growth Chart */}
+									<Card>
 										<CardHeader className="pb-2">
-											<div className="flex items-center gap-2">
-												<Users className="w-5 h-5 text-app-primary" />
-												<CardTitle className="text-lg font-semibold">
-													User Growth
-												</CardTitle>
-											</div>
+											<CardTitle className="text-base">User Growth</CardTitle>
 											<CardDescription>
 												New user registrations over time
 											</CardDescription>
@@ -1055,19 +1047,11 @@ export default function EnhancedDashboardPage() {
 													<BarChart data={chartData.userGrowthData}>
 														<XAxis dataKey="date" />
 														<YAxis />
-														<Tooltip
-															contentStyle={{
-																backgroundColor: "rgba(255, 255, 255, 0.1)",
-																backdropFilter: "blur(10px)",
-																border: "1px solid rgba(255, 255, 255, 0.2)",
-																borderRadius: "8px",
-															}}
-														/>
+														<Tooltip />
 														<Bar
 															dataKey="users"
-															fill="url(#userGradient)"
+															fill="#8884d8"
 															name="New Users"
-															radius={[4, 4, 0, 0]}
 														/>
 													</BarChart>
 												</ResponsiveContainer>
@@ -1075,9 +1059,10 @@ export default function EnhancedDashboardPage() {
 										</CardContent>
 									</Card>
 
-									<Card className=" border-white/20 hover-lift transition-all duration-300">
+									{/* User Rank Distribution */}
+									<Card>
 										<CardHeader className="pb-2">
-											<CardTitle className="text-lg font-semibold">
+											<CardTitle className="text-base">
 												User Rank Distribution
 											</CardTitle>
 											<CardDescription>
@@ -1117,9 +1102,357 @@ export default function EnhancedDashboardPage() {
 										</CardContent>
 									</Card>
 								</div>
+
+								<Card>
+									<CardHeader className="pb-2">
+										<CardTitle className="text-base">
+											User Demographics
+										</CardTitle>
+										<CardDescription>
+											Age and gender distribution
+										</CardDescription>
+									</CardHeader>
+									<CardContent className="pt-0">
+										<div className="grid gap-6 md:grid-cols-2">
+											<div className="h-[300px]">
+												<h4 className="text-sm font-medium mb-2">
+													Age Distribution
+												</h4>
+												<ResponsiveContainer width="100%" height="100%">
+													<BarChart data={chartData.userDemographicsAge}>
+														<XAxis dataKey="age" />
+														<YAxis />
+														<Tooltip />
+														<Bar dataKey="count" fill="#0088FE" name="Users" />
+													</BarChart>
+												</ResponsiveContainer>
+											</div>
+
+											<div className="h-[300px] flex flex-col">
+												<h4 className="text-sm font-medium mb-2">
+													Gender Distribution
+												</h4>
+												<div className="flex-1 flex items-center justify-center">
+													{chartData.userDemographicsGender.length > 0 ? (
+														<ResponsiveContainer width="100%" height="100%">
+															<RePieChart>
+																<Pie
+																	data={chartData.userDemographicsGender}
+																	cx="50%"
+																	cy="50%"
+																	labelLine={false}
+																	outerRadius={80}
+																	fill="#8884d8"
+																	dataKey="value"
+																	label={({ name, percent }) =>
+																		`${name}: ${(percent * 100).toFixed(0)}%`
+																	}>
+																	{chartData.userDemographicsGender.map(
+																		(entry, index) => (
+																			<Cell
+																				key={`cell-${index}`}
+																				fill={COLORS[index % COLORS.length]}
+																			/>
+																		)
+																	)}
+																</Pie>
+																<Tooltip />
+															</RePieChart>
+														</ResponsiveContainer>
+													) : (
+														<p className="text-muted-foreground">
+															No gender data available
+														</p>
+													)}
+												</div>
+											</div>
+										</div>
+									</CardContent>
+								</Card>
 							</TabsContent>
 
-							{/* Continue with other tabs... */}
+							<TabsContent value="transactions" className="space-y-6">
+								<div className="grid gap-6 md:grid-cols-2">
+									{/* Transaction Types Chart */}
+									<Card>
+										<CardHeader className="pb-2">
+											<CardTitle className="text-base">
+												Transaction Types
+											</CardTitle>
+											<CardDescription>
+												Distribution of transaction categories
+											</CardDescription>
+										</CardHeader>
+										<CardContent className="pt-0">
+											<div className="h-[300px] flex items-center justify-center">
+												{chartData.transactionTypeData.length > 0 ? (
+													<ResponsiveContainer width="100%" height="100%">
+														<RePieChart>
+															<Pie
+																data={chartData.transactionTypeData}
+																cx="50%"
+																cy="50%"
+																labelLine={false}
+																outerRadius={80}
+																fill="#8884d8"
+																dataKey="value"
+																label={({ name, percent }) =>
+																	`${name}: ${(percent * 100).toFixed(0)}%`
+																}>
+																{chartData.transactionTypeData.map(
+																	(entry, index) => (
+																		<Cell
+																			key={`cell-${index}`}
+																			fill={COLORS[index % COLORS.length]}
+																		/>
+																	)
+																)}
+															</Pie>
+															<Tooltip />
+														</RePieChart>
+													</ResponsiveContainer>
+												) : (
+													<p className="text-muted-foreground">
+														No transaction data available
+													</p>
+												)}
+											</div>
+										</CardContent>
+									</Card>
+
+									{/* Transaction Trends Chart */}
+									<Card>
+										<CardHeader className="pb-2">
+											<CardTitle className="text-base">
+												Transaction Trends
+											</CardTitle>
+											<CardDescription>
+												Transaction volume and amount over time
+											</CardDescription>
+										</CardHeader>
+										<CardContent className="pt-0">
+											<div className="h-[300px]">
+												<ResponsiveContainer width="100%" height="100%">
+													<ReLineChart data={chartData.transactionTrendsData}>
+														<CartesianGrid strokeDasharray="3 3" />
+														<XAxis dataKey="date" />
+														<YAxis
+															yAxisId="left"
+															orientation="left"
+															stroke="#8884d8"
+														/>
+														<YAxis
+															yAxisId="right"
+															orientation="right"
+															stroke="#82ca9d"
+														/>
+														<Tooltip />
+														<Line
+															yAxisId="left"
+															type="monotone"
+															dataKey="amount"
+															stroke="#8884d8"
+															name="Amount"
+														/>
+														<Line
+															yAxisId="right"
+															type="monotone"
+															dataKey="count"
+															stroke="#82ca9d"
+															name="Count"
+														/>
+													</ReLineChart>
+												</ResponsiveContainer>
+											</div>
+										</CardContent>
+									</Card>
+								</div>
+
+								<Card>
+									<CardHeader className="pb-2">
+										<CardTitle className="text-base">
+											Average Steps by Rank
+										</CardTitle>
+										<CardDescription>
+											Estimated daily average steps per user rank
+										</CardDescription>
+									</CardHeader>
+									<CardContent className="pt-0">
+										<div className="h-[300px]">
+											<ResponsiveContainer width="100%" height="100%">
+												<BarChart data={chartData.rankProgressData}>
+													<XAxis
+														dataKey="rank"
+														tickFormatter={(value) => value.replace("_", " ")}
+													/>
+													<YAxis />
+													<Tooltip />
+													<Bar
+														dataKey="avgSteps"
+														fill="#00C49F"
+														name="Avg. Steps"
+													/>
+												</BarChart>
+											</ResponsiveContainer>
+										</div>
+									</CardContent>
+								</Card>
+							</TabsContent>
+
+							<TabsContent value="challenges" className="space-y-6">
+								<div className="grid gap-6 md:grid-cols-2">
+									{/* Challenge Status Chart */}
+									<Card>
+										<CardHeader className="pb-2">
+											<CardTitle className="text-base">
+												Challenge Status
+											</CardTitle>
+											<CardDescription>
+												Current status of all challenges
+											</CardDescription>
+										</CardHeader>
+										<CardContent className="pt-0">
+											<div className="h-[300px] flex items-center justify-center">
+												{chartData.challengeCompletionData.length > 0 ? (
+													<ResponsiveContainer width="100%" height="100%">
+														<RePieChart>
+															<Pie
+																data={chartData.challengeCompletionData}
+																cx="50%"
+																cy="50%"
+																labelLine={false}
+																outerRadius={80}
+																fill="#8884d8"
+																dataKey="value"
+																label={({ name, percent }) =>
+																	`${name}: ${(percent * 100).toFixed(0)}%`
+																}>
+																{chartData.challengeCompletionData.map(
+																	(entry, index) => (
+																		<Cell
+																			key={`cell-${index}`}
+																			fill={COLORS[index % COLORS.length]}
+																		/>
+																	)
+																)}
+															</Pie>
+															<Tooltip />
+														</RePieChart>
+													</ResponsiveContainer>
+												) : (
+													<p className="text-muted-foreground">
+														No challenge data available
+													</p>
+												)}
+											</div>
+										</CardContent>
+									</Card>
+
+									{/* Challenge Participation */}
+									<Card>
+										<CardHeader className="pb-2">
+											<CardTitle className="text-base">
+												Challenge Participation
+											</CardTitle>
+											<CardDescription>
+												User participation in challenges
+											</CardDescription>
+										</CardHeader>
+										<CardContent className="pt-0">
+											<div className="h-[300px]">
+												{chartData.challengeParticipationData.length > 0 ? (
+													<ResponsiveContainer width="100%" height="100%">
+														<BarChart
+															data={chartData.challengeParticipationData}>
+															<XAxis dataKey="name" />
+															<YAxis />
+															<Tooltip />
+															<Bar
+																dataKey="participants"
+																fill="#FFBB28"
+																name="Participants"
+															/>
+														</BarChart>
+													</ResponsiveContainer>
+												) : (
+													<div className="flex items-center justify-center h-full">
+														<p className="text-muted-foreground">
+															No challenge participation data available
+														</p>
+													</div>
+												)}
+											</div>
+										</CardContent>
+									</Card>
+								</div>
+
+								<Card>
+									<CardHeader className="pb-2">
+										<CardTitle className="text-base">
+											Challenge Details
+										</CardTitle>
+										<CardDescription>
+											Overview of challenge metrics
+										</CardDescription>
+									</CardHeader>
+									<CardContent className="pt-0">
+										<div className="grid gap-4 md:grid-cols-3">
+											<div className="flex items-center space-x-3 p-4 bg-blue-50 rounded-lg">
+												<div className="flex-shrink-0">
+													<Trophy className="h-8 w-8 text-blue-600" />
+												</div>
+												<div>
+													<p className="text-sm font-medium text-blue-800">
+														Total Challenges
+													</p>
+													<p className="text-2xl font-bold text-blue-600">
+														{allChallenges.length}
+													</p>
+													<p className="text-xs text-blue-700">All time</p>
+												</div>
+											</div>
+
+											<div className="flex items-center space-x-3 p-4 bg-green-50 rounded-lg">
+												<div className="flex-shrink-0">
+													<CheckCircle className="h-8 w-8 text-green-600" />
+												</div>
+												<div>
+													<p className="text-sm font-medium text-green-800">
+														Active Challenges
+													</p>
+													<p className="text-2xl font-bold text-green-600">
+														{stats ? stats.challenges.active : "0"}
+													</p>
+													<p className="text-xs text-green-700">
+														Currently running
+													</p>
+												</div>
+											</div>
+
+											<div className="flex items-center space-x-3 p-4 bg-purple-50 rounded-lg">
+												<div className="flex-shrink-0">
+													<Users className="h-8 w-8 text-purple-600" />
+												</div>
+												<div>
+													<p className="text-sm font-medium text-purple-800">
+														Total Participants
+													</p>
+													<p className="text-2xl font-bold text-purple-600">
+														{allChallenges.reduce(
+															(sum, challenge) =>
+																sum + (challenge.participants || 0),
+															0
+														)}
+													</p>
+													<p className="text-xs text-purple-700">
+														Across all challenges
+													</p>
+												</div>
+											</div>
+										</div>
+									</CardContent>
+								</Card>
+							</TabsContent>
 						</div>
 					</Tabs>
 				</CardContent>
