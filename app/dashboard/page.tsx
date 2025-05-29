@@ -60,13 +60,7 @@ import {
 
 import { DashboardStats } from "@/components/dashboard/dashboard-stats";
 import { WithdrawalOverview } from "@/components/dashboard/withdrawal-overview";
-
-// Define the base API URL
-const API_URL = "http://localhost:3001"; // Update this with your actual API URL
-
-// Define the auth token - in a real app, this would come from a secure auth context
-const AUTH_TOKEN =
-	"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NCwiZW1haWwiOiJhZG1pbjEyQGdtYWlsLmNvbSIsImlzUG9ydGFsVXNlciI6dHJ1ZSwiaWF0IjoxNzQ3NDY5MDkwLCJleHAiOjE3NTAwNjEwOTB9.ZNMZ1ymCn76MyGYalLbrxhpcbVYC-suGS34K9TCik2M";
+import { BEARER_TOKEN, API_URL } from "@/lib/config.json";
 
 interface SystemStats {
 	users: {
@@ -176,8 +170,9 @@ const COLORS = [
 	"#f97316",
 	"#8b5cf6",
 ];
+const AUTH_TOKEN = `Bearer ${BEARER_TOKEN}`;
 
-export default function EnhancedDashboardPage() {
+export default function DashboardPage() {
 	const [stats, setStats] = useState<SystemStats | null>(null);
 	const [rankStats, setRankStats] = useState<RankStats[]>([]);
 	const [recentUsers, setRecentUsers] = useState<User[]>([]);
@@ -189,6 +184,7 @@ export default function EnhancedDashboardPage() {
 	const [allChallenges, setAllChallenges] = useState<Challenge[]>([]);
 	const [loading, setLoading] = useState(true);
 	const [analyticsLoading, setAnalyticsLoading] = useState(false);
+	
 	const [profileCompletionStats, setProfileCompletionStats] = useState({
 		completed: 0,
 		incomplete: 0,
@@ -658,7 +654,7 @@ export default function EnhancedDashboardPage() {
 				<div className="flex flex-col gap-2">
 					<h1 className="text-4xl font-bold gradient-text">Dashboard</h1>
 					<p className="text-muted-foreground text-lg">
-						Welcome to Promo Tech Admin
+						Welcome to Sheger Walk Admin
 					</p>
 				</div>
 				<div className="flex items-center justify-center h-64">
@@ -683,7 +679,7 @@ export default function EnhancedDashboardPage() {
 				<div className="flex flex-col gap-3">
 					<h1 className="text-4xl font-bold gradient-text">Dashboard</h1>
 					<p className="text-muted-foreground text-lg">
-						Welcome to Promo Tech Admin
+						Welcome to Sheger Walk Admin
 					</p>
 					<div className="flex items-center gap-4 text-sm text-muted-foreground">
 						<div className="flex items-center gap-2">
@@ -1119,7 +1115,7 @@ export default function EnhancedDashboardPage() {
 								</div>
 							</TabsContent>
 
-							{/* Continue with other tabs... */}
+							
 						</div>
 					</Tabs>
 				</CardContent>
