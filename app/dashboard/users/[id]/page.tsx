@@ -48,7 +48,7 @@ import {
 } from "@/components/ui/table";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import {BEARER_TOKEN, API_URL} from "@/lib/config.json";
+import { BEARER_TOKEN, API_URL } from "@/lib/config.json";
 
 interface UserDetails {
 	id: number;
@@ -90,14 +90,11 @@ export default function UserDetailsPage() {
 		const fetchUserData = async () => {
 			try {
 				setLoading(true);
-				const response = await fetch(
-					`${API_URL}/api/admin/users/${userId}`,
-					{
-						headers: {
-							Authorization: `Bearer ${BEARER_TOKEN}`
-						},
-					}
-				);
+				const response = await fetch(`${API_URL}/api/admin/users/${userId}`, {
+					headers: {
+						Authorization: `Bearer ${BEARER_TOKEN}`,
+					},
+				});
 				const data = await response.json();
 
 				console.log("User data:", data);
@@ -586,7 +583,7 @@ export default function UserDetailsPage() {
 																	<Footprints className="h-4 w-4 text-blue-600 dark:text-blue-400" />
 																</div>
 																<span className="font-medium">
-																	{activity.steps}
+																	{activity.totalSteps}
 																</span>
 															</div>
 														</TableCell>
@@ -819,7 +816,7 @@ export default function UserDetailsPage() {
 												Current Balance
 											</p>
 											<p className="text-3xl font-bold bg-gradient-to-r from-app-primary to-app-secondary bg-clip-text text-transparent">
-												{user.wallet.balance.toLocaleString()} ETB
+												{user.wallet.balance.toLocaleString()} sc
 											</p>
 										</div>
 										<div className="h-16 w-16 bg-gradient-to-br from-app-primary to-app-secondary rounded-full flex items-center justify-center shadow-lg shadow-app-primary/20">
