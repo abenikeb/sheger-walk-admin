@@ -185,7 +185,6 @@ export default function DashboardPage() {
 	const [allChallenges, setAllChallenges] = useState<Challenge[]>([]);
 	const [loading, setLoading] = useState(true);
 	const [analyticsLoading, setAnalyticsLoading] = useState(false);
-
 	const [profileCompletionStats, setProfileCompletionStats] = useState({
 		completed: 0,
 		incomplete: 0,

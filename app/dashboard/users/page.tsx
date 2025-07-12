@@ -320,34 +320,37 @@ export default function UsersPage() {
 			});
 			return;
 		}
-
+	
 		try {
 			setIsSendingNotification(true);
-
-			// Here you would implement the actual API call to send notifications
-			// Example:
-			// const response = await fetch(`${API_URL}/api/admin/notifications/bulk", {
-			//   method: "POST",
-			//   headers: {
-			//     "Content-Type": "application/json",
-			//     Authorization: "Bearer your-token-here",
-			//   },
-			//   body: JSON.stringify({
-			//     userIds: selectedUsers,
-			//     message: notificationMessage,
-			//   }),
-			// });
-
-			// Simulate API call
-			await new Promise((resolve) => setTimeout(resolve, 1000));
-
+	
+			// ✅ Actual API call to your backend
+			const response = await fetch(`${API_URL}/api/notification/bulk`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${BEARER_TOKEN}`, // Replace with actual token logic
+				},
+				body: JSON.stringify({
+					userIds: selectedUsers, // This should be an array of user IDs
+					title: "Admin Notification",
+					body: notificationMessage,
+				}),
+			});
+	
+			const result = await response.json();
+	
+			if (!response.ok) {
+				throw new Error(result.message || "Failed to send notifications");
+			}
+	
 			toast({
 				title: "Success",
 				description: `Notification sent to ${selectedUsers.length} user${
 					selectedUsers.length !== 1 ? "s" : ""
 				}`,
 			});
-
+	
 			setIsNotificationModalOpen(false);
 			setNotificationMessage("");
 		} catch (error) {
@@ -361,6 +364,58 @@ export default function UsersPage() {
 			setIsSendingNotification(false);
 		}
 	};
+	
+
+	// const handleSendNotification = async () => {
+	// 	if (!notificationMessage.trim()) {
+	// 		toast({
+	// 			title: "Error",
+	// 			description: "Please enter a notification message",
+	// 			variant: "destructive",
+	// 		});
+	// 		return;
+	// 	}
+
+	// 	try {
+	// 		setIsSendingNotification(true);
+
+	// 		// Here you would implement the actual API call to send notifications
+	// 		// Example:
+	// 		// const response = await fetch(`${API_URL}/api/admin/notifications/bulk", {
+	// 		//   method: "POST",
+	// 		//   headers: {
+	// 		//     "Content-Type": "application/json",
+	// 		//     Authorization: "Bearer your-token-here",
+	// 		//   },
+	// 		//   body: JSON.stringify({
+	// 		//     userIds: selectedUsers,
+	// 		//     message: notificationMessage,
+	// 		//   }),
+	// 		// });
+
+	// 		// Simulate API call
+	// 		await new Promise((resolve) => setTimeout(resolve, 1000));
+
+	// 		toast({
+	// 			title: "Success",
+	// 			description: `Notification sent to ${selectedUsers.length} user${
+	// 				selectedUsers.length !== 1 ? "s" : ""
+	// 			}`,
+	// 		});
+
+	// 		setIsNotificationModalOpen(false);
+	// 		setNotificationMessage("");
+	// 	} catch (error) {
+	// 		console.error("Error sending notifications:", error);
+	// 		toast({
+	// 			title: "Error",
+	// 			description: "Failed to send notifications. Please try again.",
+	// 			variant: "destructive",
+	// 		});
+	// 	} finally {
+	// 		setIsSendingNotification(false);
+	// 	}
+	// };
 
 	const clearSelection = () => {
 		setSelectedUsers([]);
