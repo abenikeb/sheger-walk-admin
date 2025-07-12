@@ -10,7 +10,6 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
 	title: "Sheger Walk Admin",
 	description: "Admin dashboard for Sheger Walk activity tracking platform",
-	generator: "v0.dev",
 };
 
 export default function RootLayout({
