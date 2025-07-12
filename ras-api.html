@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Rasynergy API Documentation</title>
+		<style>
+			body {
+				font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+				margin: 40px;
+				background-color: #fff;
+				color: #222;
+				line-height: 1.6;
+			}
+			h1,
+			h2,
+			h3 {
+				color: #003366;
+			}
+			code,
+			pre {
+				background-color: #f4f4f4;
+				padding: 10px;
+				display: block;
+				white-space: pre-wrap;
+				border-left: 4px solid #003366;
+				margin: 10px 0;
+			}
+			section {
+				margin-bottom: 40px;
+			}
+			hr {
+				border: none;
+				border-top: 1px solid #ccc;
+				margin: 40px 0;
+			}
+			.cover {
+				text-align: center;
+				padding: 80px 20px;
+				background-color: #e9eef5;
+				border: 2px solid #003366;
+				margin-bottom: 60px;
+			}
+			.cover h1 {
+				font-size: 36px;
+			}
+			ul {
+				padding-left: 20px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="cover">
+			<h1>Rasynergy API Documentation</h1>
+			<p>
+				<strong>Company:</strong> Rasynergy Digital Card Solution and Printing
+				Company
+			</p>
+			<p><strong>Submission Date:</strong> June 2025</p>
+			<p><strong>Purpose:</strong> Security Assessment by INSA</p>
+		</div>
+
+		<section>
+			<h2>1. Introduction</h2>
+			<p>
+				Rasynergy is a digital solution provider based in Addis Ababa, Ethiopia,
+				offering digital ID card and student service management. This
+				documentation presents the API system powering the platform available at
+				<a href="https://rasynergy.et">https://rasynergy.et</a>.
+			</p>
+		</section>
+
+		<section>
+			<h2>2. Objective</h2>
+			<p>
+				The objective of this document is to provide INSA with a complete
+				overview of our API endpoints, authentication methods, and data exchange
+				patterns for the purpose of conducting a thorough cybersecurity
+				assessment and ensuring compliance with national standards.
+			</p>
+		</section>
+
+		<section>
+			<h2>3. API Authentication</h2>
+			<h3>POST /api/login</h3>
+			<p>
+				<strong>Description:</strong> Authenticate a user and receive a JWT
+				token.
+			</p>
+			<pre>
+{
+  "username": "admin",
+  "password": "password123"
+}</pre
+			>
+			<pre>
+{
+  "token": "eyJhbGciOiJI..."
+}</pre
+			>
+			<p>Use the token in headers:</p>
+			<pre>Authorization: Bearer &lt;token&gt;</pre>
+		</section>
+
+		<section>
+			<h2>4. API Endpoints Overview</h2>
+
+			<h3>Schools</h3>
+			<p><strong>GET /api/schools</strong> – List all schools</p>
+			<p><strong>POST /api/schools</strong> – Create a new school</p>
+
+			<h3>Students</h3>
+			<p><strong>GET /api/students</strong> – List or filter students</p>
+			<p><strong>POST /api/students</strong> – Add a new student</p>
+			<p><strong>PUT /api/students</strong> – Update a student record</p>
+
+			<h3>Products & Orders</h3>
+			<p><strong>GET /api/products</strong> – Get all products</p>
+			<p><strong>POST /api/products</strong> – Create a product purchase</p>
+			<p>
+				<strong>GET /api/orders</strong> – Get orders by reference number or
+				student
+			</p>
+
+			<h3>Payments</h3>
+			<p>
+				<strong>POST /api/ras-verify-payment</strong> – Start payment process
+			</p>
+			<p>
+				<strong>POST /api/ras-payment-webhook</strong> – Payment callback
+				endpoint
+			</p>
+		</section>
+
+		<section>
+			<h2>5. Authorization and Access Control</h2>
+			<p>
+				All routes are secured using a JWT token passed in the request header.
+				Access is restricted based on user roles (admin, school staff,
+				superadmin).
+			</p>
+		</section>
+
+		<section>
+			<h2>6. Third-Party Integrations</h2>
+			<ul>
+				<li>Telebirr (mobile wallet payment integration)</li>
+				<li>SantimPay (payment aggregator)</li>
+			</ul>
+		</section>
+
+		<section>
+			<h2>7. Compliance</h2>
+			<p>
+				All user data is handled securely following local data protection
+				policies. We also ensure:
+			</p>
+			<ul>
+				<li>End-to-end encryption during authentication and payment</li>
+				<li>Role-based access control</li>
+				<li>API input validation and request throttling</li>
+			</ul>
+		</section>
+
+		<section>
+			<h2>8. Test Account Details</h2>
+			<pre>
+Username: testadmin
+Password: Test@1234
+Login URL: https://rasynergy.et/login
+API Base URL: https://rasynergy.et/api
+    </pre
+			>
+		</section>
+
+		<section>
+			<h2>9. Conclusion</h2>
+			<p>
+				This document serves as a foundational input for INSA to perform a
+				security audit on the Rasynergy platform. We are committed to
+				maintaining national cybersecurity standards and look forward to your
+				feedback and recommendations.
+			</p>
+		</section>
+	</body>
+</html>

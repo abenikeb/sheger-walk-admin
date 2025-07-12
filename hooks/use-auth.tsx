@@ -52,14 +52,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 			}
 
 			// Verify token with backend
-			const response = await fetch(
-				`${API_URL}/api/authAdmin/verify`,
-				{
-					headers: {
-						Authorization: `Bearer ${token}`,
-					},
-				}
-			);
+			const response = await fetch(`${API_URL}/api/authAdmin/verify`, {
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			});
 
 			if (response.ok) {
 				const data = await response.json();
@@ -78,16 +75,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
 	const login = async (email: string, password: string) => {
 		try {
-			const response = await fetch(
-				`${API_URL}/api/authAdmin/login`,
-				{
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({ email, password }),
-				}
-			);
+			const response = await fetch(`${API_URL}/api/authAdmin/login`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ email, password }),
+			});
 
 			const data = await response.json();
 
@@ -116,15 +110,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 			const token = localStorage.getItem("token");
 			if (!token) return false;
 
-			const response = await fetch(
-				`${API_URL}/api/authAdmin/refresh`,
-				{
-					method: "POST",
-					headers: {
-						Authorization: `Bearer ${token}`,
-					},
-				}
-			);
+			const response = await fetch(`${API_URL}/api/authAdmin/refresh`, {
+				method: "POST",
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			});
 
 			if (response.ok) {
 				const data = await response.json();
