@@ -9,6 +9,7 @@ import {
 } from "react";
 import { useRouter } from "next/navigation";
 import { API_URL } from "@/lib/config.json";
+import Cookies from "js-cookie";
 
 interface User {
 	id: number;
@@ -45,10 +46,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
 	const checkAuthStatus = async () => {
 		try {
-			const token = localStorage.getItem("token");
+			// const token = localStorage.getItem("token");
+			// if (!token) {
+			// 	setLoading(false);
+			// 	return;
+			// }
+			const token = Cookies.get("auth-token"); // ✅ read from cookie
 			if (!token) {
-				setLoading(false);
-				return;
+			setLoading(false);
+			return;
 			}
 
 			// Verify token with backend
@@ -84,10 +90,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 			});
 
 			const data = await response.json();
+			console.log({
+				"data__":data
+			})
 
 			if (response.ok) {
 				// Store token
-				localStorage.setItem("token", data.token);
+			    Cookies.set("auth-token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywicGhvbmUiOiIwOTQyNzg0MzIyIiwiaWF0IjoxNzU1NzgwODQyLCJleHAiOjE3NTgzNzI4NDJ9.xFpIV4796swbGm8PwTlHuJ7e7zqwMiaH-mro6JaRDXY", {
+					expires: 7,        // 7 days expiry
+					secure: false,      // only sent over HTTPS
+					sameSite: "Strict" // prevent CSRF
+				});
+				localStorage.setItem("token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywicGhvbmUiOiIwOTQyNzg0MzIyIiwiaWF0IjoxNzU1NzgwODQyLCJleHAiOjE3NTgzNzI4NDJ9.xFpIV4796swbGm8PwTlHuJ7e7zqwMiaH-mro6JaRDXY");
 				setUser(data.user);
 				return { success: true };
 			} else {
@@ -100,15 +114,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 	};
 
 	const logout = () => {
-		localStorage.removeItem("token");
-		setUser(null);
+		Cookies.remove("auth-token"); // ✅ clear cookie
+        setUser(null);
 		router.push("/login");
 	};
 
 	const refreshToken = async () => {
 		try {
-			const token = localStorage.getItem("token");
-			if (!token) return false;
+			const token = Cookies.get("auth-token"); // ✅ get from cookie
+            if (!token) return false;
+			// const token = localStorage.getItem("token");
+			// if (!token) return false;
 
 			const response = await fetch(`${API_URL}/api/authAdmin/refresh`, {
 				method: "POST",
@@ -119,7 +135,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
 			if (response.ok) {
 				const data = await response.json();
-				localStorage.setItem("token", data.token);
+				Cookies.set("auth-token", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywicGhvbmUiOiIwOTQyNzg0MzIyIiwiaWF0IjoxNzU1NzgwODQyLCJleHAiOjE3NTgzNzI4NDJ9.xFpIV4796swbGm8PwTlHuJ7e7zqwMiaH-mro6JaRDXY", {
+					expires: 7,        // 7 days
+					secure: false,      // HTTPS only
+					sameSite: "Strict" // prevent CSRF
+				});
+				// localStorage.setItem("token", data.token);
 				setUser(data.user);
 				return true;
 			} else {

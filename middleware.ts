@@ -7,10 +7,11 @@ const publicRoutes = ["/login"];
 
 export function middleware(req: NextRequest) {
 	// const token = req.cookies.get("auth-token")?.value; // Adjust based on your auth
-	const { user, isAuthenticated, loading } = useAuth();
+	// const { user, isAuthenticated, loading } = useAuth();
+	const token = req.cookies.get("auth-token")?.value;
 
 	const { pathname } = req.nextUrl;
-
+    const isAuthenticated = !!token;
 	// Redirect root "/" based on auth
 	if (pathname === "/") {
 		return NextResponse.redirect(
