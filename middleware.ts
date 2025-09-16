@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { useAuth } from "./hooks/use-auth";
 
-// List of routes that require authentication
 const protectedRoutes = ["/dashboard", "/profile"];
 const publicRoutes = ["/login"];
 
@@ -19,7 +17,7 @@ export function middleware(req: NextRequest) {
 		);
 	}
 
-	// If accessing protected route without token
+	//Block access to protected routes if not authenticated
 	if (
 		protectedRoutes.some((route) => pathname.startsWith(route)) &&
 		!isAuthenticated
@@ -29,16 +27,18 @@ export function middleware(req: NextRequest) {
 		return NextResponse.redirect(loginUrl);
 	}
 
-	// If accessing login when already logged in
+	// Prevent access to login when already logged in
 	if (publicRoutes.includes(pathname) && isAuthenticated) {
 		const redirectUrl =
 			req.nextUrl.searchParams.get("redirectAfterLogin") || "/dashboard";
 		return NextResponse.redirect(new URL(redirectUrl, req.url));
 	}
 
+	// Allow request to proceed
 	return NextResponse.next();
 }
 
 export const config = {
-	matcher: ["/", "/dashboard/:path*", "/login"], // Add your protected routes
+	// This controls what routes the middleware runs on
+	matcher: ["/", "/dashboard/:path*", "/login", "/profile"],
 };
