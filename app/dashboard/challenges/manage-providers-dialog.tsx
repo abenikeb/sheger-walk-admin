@@ -4,7 +4,7 @@ import type React from "react";
 
 import { useState } from "react";
 import { Pencil, Trash2 } from "lucide-react";
-
+import { toast } from "@/hooks/use-toast";
 import { Button } from "@/components/ui/button";
 import {
 	Dialog,
@@ -18,8 +18,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {BEARER_TOKEN, API_URL} from "@/lib/config.json";
-
+import { BEARER_TOKEN, API_URL } from "@/lib/config.json";
 
 interface ChallengeProvider {
 	id: number;
@@ -101,23 +100,64 @@ export function ManageProvidersDialog({
 		if (!confirm("Are you sure you want to delete this provider?")) return;
 
 		try {
+			setLoading(true);
 			const response = await fetch(
-				`${API_URL}/api/challenges/challengeProvider/${providerId}`,
+				`${API_URL}/api/challenges/providers/${providerId}`,
 				{
 					method: "DELETE",
+					headers: {
+						Authorization: `Bearer ${BEARER_TOKEN}`,
+					},
 				}
 			);
 
 			if (response.ok) {
+				toast({
+					title: "Success",
+					description: "Provider deleted successfully",
+				});
 				onSuccess();
 			} else {
-				alert("Failed to delete provider");
+				const result = await response.json();
+				toast({
+					title: "Error",
+					description: result.message || "Failed to delete provider",
+					variant: "destructive",
+				});
 			}
 		} catch (error) {
 			console.error("Error deleting provider:", error);
-			alert("Failed to delete provider");
+			toast({
+				title: "Error",
+				description: "An unexpected error occurred",
+				variant: "destructive",
+			});
+		} finally {
+			setLoading(false);
 		}
 	};
+
+	// const handleDelete = async (providerId: number) => {
+	// 	if (!confirm("Are you sure you want to delete this provider?")) return;
+
+	// 	try {
+	// 		const response = await fetch(
+	// 			`${API_URL}/api/challenges/challengeProvider/${providerId}`,
+	// 			{
+	// 				method: "DELETE",
+	// 			}
+	// 		);
+
+	// 		if (response.ok) {
+	// 			onSuccess();
+	// 		} else {
+	// 			alert("Failed to delete provider");
+	// 		}
+	// 	} catch (error) {
+	// 		console.error("Error deleting provider:", error);
+	// 		alert("Failed to delete provider");
+	// 	}
+	// };
 
 	const resetForm = () => {
 		setEditingProvider(null);

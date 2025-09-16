@@ -76,7 +76,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Separator } from "@/components/ui/separator";
-import {BEARER_TOKEN, API_URL} from "@/lib/config.json";
+import { BEARER_TOKEN, API_URL, NEXT_PUBLIC_API_URL } from "@/lib/config.json";
 
 interface ChallengeProvider {
 	id: number;
@@ -174,12 +174,9 @@ export default function ChallengeDetailPage() {
 			return;
 
 		try {
-			const response = await fetch(
-				`${API_URL}/api/challenges/${challengeId}`,
-				{
-					method: "DELETE",
-				}
-			);
+			const response = await fetch(`${API_URL}/api/challenges/${challengeId}`, {
+				method: "DELETE",
+			});
 
 			if (response.ok) {
 				router.push("/dashboard/challenges");
@@ -198,23 +195,20 @@ export default function ChallengeDetailPage() {
 		setSendingNotification(true);
 		try {
 			const winner = getWinner();
-			const response = await fetch(
-				`${API_URL}/api/notifications/winner`,
-				{
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify({
-						challengeId: challenge.id,
-						winnerId: winner?.participant.userId,
-						challengeName: challenge.name,
-						rewardValue: challenge.reward.value,
-						rewardType: challenge.reward.type,
-						customMessage: notificationMessage,
-					}),
-				}
-			);
+			const response = await fetch(`${API_URL}/api/notifications/winner`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					challengeId: challenge.id,
+					winnerId: winner?.participant.userId,
+					challengeName: challenge.name,
+					rewardValue: challenge.reward.value,
+					rewardType: challenge.reward.type,
+					customMessage: notificationMessage,
+				}),
+			});
 
 			if (response.ok) {
 				setNotificationSent(true);
@@ -725,7 +719,10 @@ export default function ChallengeDetailPage() {
 					<CardContent className="p-0">
 						<div className="relative">
 							<img
-								src={challenge.image || "/placeholder.svg?height=300&width=800"}
+								src={
+									`${API_URL}${challenge.image}` ||
+									"/placeholder.svg?height=300&width=800"
+								}
 								alt={challenge.name}
 								className="w-full h-64 object-cover"
 							/>
