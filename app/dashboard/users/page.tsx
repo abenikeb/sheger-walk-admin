@@ -329,7 +329,7 @@ export default function UsersPage() {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
-					Authorization: `Bearer ${BEARER_TOKEN}`, // Replace with actual token logic
+					Authorization: `Bearer ${BEARER_TOKEN}`,
 				},
 				body: JSON.stringify({
 					userIds: selectedUsers, // This should be an array of user IDs
