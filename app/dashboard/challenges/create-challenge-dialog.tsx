@@ -74,7 +74,7 @@ const formSchema = z
 			.string()
 			.min(10, "Description must be at least 10 characters")
 			.max(500, "Description must be less than 500 characters"),
-		providerId: z.string().optional(),
+		challengeProviderId: z.string().optional(),
 		rewardName: z.string().optional(),
 		rewardValue: z.any().optional(),
 		rewardTypeId: z.string().min(1, "Reward type is required"),
@@ -151,7 +151,7 @@ export function CreateChallengeDialog({
 		defaultValues: {
 			name: "",
 			description: "",
-			providerId: "0",
+			challengeProviderId: "0",
 			rewardTypeId: "0",
 			joiningCost: 0,
 			isFree: false,
@@ -234,7 +234,9 @@ export function CreateChallengeDialog({
 			// Payload
 			const payload = {
 				...data,
-				providerId: data.providerId ? Number.parseInt(data.providerId) : null,
+				challengeProviderId: data.challengeProviderId
+					? Number.parseInt(data.challengeProviderId)
+					: null,
 				rewardTypeId: data.rewardTypeId
 					? Number.parseInt(data.rewardTypeId)
 					: null,
@@ -520,7 +522,7 @@ export function CreateChallengeDialog({
 
 								<FormField
 									control={form.control}
-									name="providerId"
+									name="challengeProviderId"
 									render={({ field }) => (
 										<FormItem>
 											<FormLabel>Provider (Optional)</FormLabel>
