@@ -138,9 +138,15 @@ export default function SettingsPage() {
 
 	const fetchSystemStats = async () => {
 		try {
-			const response = await fetch(`${API_URL}/api/settings/stats`);
-			if (response.ok) {
+			const response = await fetch(`${API_URL}/api/settings/stats`, {
+				headers: {
+					"Content-Type": "application/json",
+					"Authorization": `Bearer ${BEARER_TOKEN}`,
+				},
+			});
+			if (response) {
 				const data = await response.json();
+				console.log("Stats response:", data);
 				setSystemStats(data.stats);
 			}
 		} catch (error) {
